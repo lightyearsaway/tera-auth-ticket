@@ -13,9 +13,10 @@ function makeHeaders(o) {
 }
 
 class webClient {
-  constructor(email, pass) {
+  constructor(email, pass, ioBlackBoxToken) {
     this.email = email;
     this.pass = pass;
+    this.ioBlackBoxToken = ioBlackBoxToken;
     this.ready = -1;
     this.request = request.defaults({
       baseUrl: 'https://account.enmasse.com',
@@ -112,7 +113,7 @@ class webClient {
       this._authenticate(callback, {
         'authenticity_token': token[1],
         'user[client_time]': '',
-        'user[io_black_box]': '.',
+        'user[io_black_box]': this.ioBlackBoxToken,
         'user[email]': this.email,
         'user[password]': this.pass,
       });
